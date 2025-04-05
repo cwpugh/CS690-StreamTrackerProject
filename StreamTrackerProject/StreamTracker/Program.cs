@@ -7,6 +7,7 @@ class Program
     {
         Console.Clear();
         string mainChoice;
+        string programName, watchStatus;
         do {
             // show basic menu choices
             Console.WriteLine("To enter a new program, type 'program'");
@@ -17,8 +18,12 @@ class Program
 
             // 'program' selection
             if(mainChoice == "program") {
-                Console.WriteLine("You entered 'program'");
-                Console.WriteLine();
+                Console.WriteLine("Please enter the program name:");
+                programName = Console.ReadLine();
+                Console.WriteLine("Have you watched this show? (enter y or n)");
+                watchStatus = Console.ReadLine();
+
+                File.AppendAllText("movie-list.txt",programName + ", " + watchStatus + Environment.NewLine);
             }
 
             // 'list' selection
