@@ -6,8 +6,6 @@
 # dotenv files
 .env
 
-movie-list.txt
-
 # User-specific files
 *.rsuser
 *.suo
