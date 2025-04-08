@@ -52,6 +52,7 @@ class Program
                     Console.WriteLine("------------------------");
                     Console.WriteLine("Listing complete. Press any key to continue.");
                     Console.ReadKey();
+                    Console.Clear();
                 }
                 else
                 {
@@ -102,10 +103,11 @@ class Program
         } else if(status.ToLower() == "n") {
             newStatus = "Not Watched";
             File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
+            
         } 
-
-        
-        
+        Console.WriteLine("Program added. Press any key to continue.");
+        Console.ReadKey();
+        Console.Clear();
 
     }
 
