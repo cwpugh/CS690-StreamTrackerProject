@@ -11,7 +11,8 @@ class Program
         do {
 
             //get choice from MainMenu
-            mainChoice = MainMenu();
+            ConsoleUI mainUI = new ConsoleUI();
+            mainChoice = mainUI.MainMenu();
         
 
             // 'program' selection
@@ -78,41 +79,5 @@ class Program
         
     
     }
-    public static string MainMenu() {
-        // show basic menu choices
-        Console.WriteLine("Main Menu: Choose a number below");
-        Console.WriteLine("--------------------------------");
-        Console.WriteLine("1 - Enter a new program");
-        Console.WriteLine("2 - List current programs");
-        Console.WriteLine("3 - Quit program");
-        Console.Write("Enter your choice here: ");
-        return Console.ReadLine();
-        
-    }
-
-    public static string UserInput(string message) {
-        Console.Write(message);
-        return Console.ReadLine();
-
-    }
-
-    public static void AppendListing(string listName, string name, string status) {
-
-        string newStatus;
-        if(status.ToLower() == "y") {
-            newStatus = "Watched";
-            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
-        } else if(status.ToLower() == "n") {
-            newStatus = "Not Watched";
-            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
-            
-        } 
-        Console.WriteLine("Program added. Press any key to continue.");
-        Console.ReadKey();
-        Console.Clear();
-
-    }
-
-
-
+ 
 }
