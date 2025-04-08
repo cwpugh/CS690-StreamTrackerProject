@@ -56,7 +56,9 @@ class Program
                 }
                 else
                 {
-                    Console.WriteLine("No programs exist.");
+                    Console.WriteLine("No programs exist. Press any key to continue.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
             }
 
