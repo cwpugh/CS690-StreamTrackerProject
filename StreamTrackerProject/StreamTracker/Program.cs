@@ -6,26 +6,26 @@ class Program
     static void Main(string[] args)
     {
         Console.Clear();
-        string mainChoice;
-        string programName, watchStatus;
+        string mainChoice, programName, watchStatus;
+        
         do {
-            // show basic menu choices
-            Console.WriteLine("Main Menu: Choose a number below");
-            Console.WriteLine("--------------------------------");
-            Console.WriteLine("1 - Enter a new program");
-            Console.WriteLine("2 - List current programs");
-            Console.WriteLine("3 - Quit program");
-            Console.Write("Enter your choice here: ");
-            mainChoice = Console.ReadLine();
+
+            //get choice from MainMenu
+            mainChoice = MainMenu();
+        
 
             // 'program' selection
             if(mainChoice == "1") {
-                Console.Write("Please enter the program name: ");
-                programName = Console.ReadLine();
-                Console.Write("Have you watched this show? (enter y or n) ");
-                watchStatus = Console.ReadLine();
-
-                File.AppendAllText("movie-list.txt",programName + ", " + watchStatus + Environment.NewLine);
+                programName = UserInput("Please enter the program name: ");
+                watchStatus = UserInput("Have you watched this show? (enter y or n) ");
+                while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    watchStatus = UserInput("Have you watched this show? (enter y or n) ");
+                    
+                }
+                
+                AppendListing("movie-list.txt",programName,watchStatus);
             }
 
             // 'list' selection
@@ -75,4 +75,40 @@ class Program
         
     
     }
+    public static string MainMenu() {
+        // show basic menu choices
+        Console.WriteLine("Main Menu: Choose a number below");
+        Console.WriteLine("--------------------------------");
+        Console.WriteLine("1 - Enter a new program");
+        Console.WriteLine("2 - List current programs");
+        Console.WriteLine("3 - Quit program");
+        Console.Write("Enter your choice here: ");
+        return Console.ReadLine();
+        
+    }
+
+    public static string UserInput(string message) {
+        Console.Write(message);
+        return Console.ReadLine();
+
+    }
+
+    public static void AppendListing(string listName, string name, string status) {
+
+        string newStatus;
+        if(status.ToLower() == "y") {
+            newStatus = "Watched";
+            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
+        } else if(status.ToLower() == "n") {
+            newStatus = "Not Watched";
+            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
+        } 
+
+        
+        
+
+    }
+
+
+
 }
