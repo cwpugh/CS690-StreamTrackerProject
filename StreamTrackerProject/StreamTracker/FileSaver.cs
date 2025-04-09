@@ -12,15 +12,15 @@ public class FileSaver {
     }
 
 
-    public static void AppendListing(string listName, string name, string status) {
+    public void AppendListing(string name, string status) {
 
         string newStatus;
         if(status.ToLower() == "y") {
             newStatus = "Watched";
-            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + ", " + newStatus + Environment.NewLine);
         } else if(status.ToLower() == "n") {
             newStatus = "Not Watched";
-            File.AppendAllText(listName,name + ", " + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + ", " + newStatus + Environment.NewLine);
             
         } 
         Console.WriteLine("Program added. Press any key to continue.");
