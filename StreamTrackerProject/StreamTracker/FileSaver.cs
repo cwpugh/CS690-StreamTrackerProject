@@ -23,9 +23,6 @@ public class FileSaver {
             File.AppendAllText(filename,name + ", " + newStatus + Environment.NewLine);
             
         } 
-        Console.WriteLine("Program added. Press any key to continue.");
-        Console.ReadKey();
-        Console.Clear();
 
     }
 

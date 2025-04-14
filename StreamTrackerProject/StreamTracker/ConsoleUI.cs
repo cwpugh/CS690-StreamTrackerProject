@@ -34,6 +34,10 @@ public class ConsoleUI {
                 }
                 
                 fileSaver.AppendListing(programName,watchStatus);
+                Console.WriteLine("Program added. Press any key to continue.");
+                Console.ReadKey();
+                Console.Clear();
+
             }
 
             // 'list' selection
