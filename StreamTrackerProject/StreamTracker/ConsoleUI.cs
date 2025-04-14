@@ -1,5 +1,8 @@
 namespace StreamTracker;
 
+using Spectre.Console;
+
+
 public class ConsoleUI {
     FileSaver fileSaver;
 
@@ -12,18 +15,19 @@ public class ConsoleUI {
         string mainChoice, programName, watchStatus;
         do {
             
-            // show basic menu choices
-            Console.Clear();
-            Console.WriteLine("Main Menu: Choose a number below");
-            Console.WriteLine("--------------------------------");
-            Console.WriteLine("1 - Enter a new program");
-            Console.WriteLine("2 - List current programs");
-            Console.WriteLine("3 - Quit program");
-            Console.Write("Enter your choice here: ");
-            mainChoice = Console.ReadLine()!;
+            // Main Menu
+            mainChoice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Main Menu: [green]Choose a number below[/]")
+                    //.PageSize(10)
+                    //.MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+                    .AddChoices(new[] {
+                        "Enter a new program", "List current programs", "Quit program",
+                    }));
+
 
             // 'program' selection
-            if(mainChoice == "1") {
+            if(mainChoice == "Enter a new program") {
                 programName = UserInput("Please enter the program name: ");
                 watchStatus = UserInput("Have you watched this show? (enter y or n) ");
                 while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
@@ -41,7 +45,7 @@ public class ConsoleUI {
             }
 
             // 'list' selection
-            else if(mainChoice == "2") {
+            else if(mainChoice == "List current programs") {
                  // Specify the path to your text file
                 string fileName = @"movie-list.txt";
 
@@ -75,12 +79,12 @@ public class ConsoleUI {
             }
 
             // invalid selection
-            else if (mainChoice!="3") {
+            else if (mainChoice!="Quit program") {
                 Console.WriteLine("'" + mainChoice + "' is an invalid response. Please try again.");
                 Console.WriteLine();
             }
 
-        } while(mainChoice!="3");
+        } while(mainChoice!="Quit program");
 
         // Message before exiting
         Console.Clear();
