@@ -20,8 +20,9 @@ public class FileSaverTests
     public void Test_FileSaver_AppendListing()
     {
         fileSaver.AppendListing("Hello, World!","y");
-        //var contentFromFile = File.ReadAllText(testFileName);
-        //Assert.Equal("Hello, World!"+Environment.NewLine,contentFromFile);
+        string fileName = @"test-list.txt"; 
+        string contentFromFile = File.ReadAllText(fileName);
+        Assert.Equal("Hello, World!, Watched"+Environment.NewLine,contentFromFile);
 
     }
 }
