@@ -9,6 +9,7 @@ public class FileSaverTests
 
     public FileSaverTests() {
         string listName = "test-list.txt";
+        File.Delete(listName);
         fileSaver = new FileSaver(listName);
 
     }
@@ -16,8 +17,11 @@ public class FileSaverTests
 
 
     [Fact]
-    public void TestAppendListing()
+    public void Test_FileSaver_AppendListing()
     {
+        fileSaver.AppendListing("Hello, World!","y");
+        //var contentFromFile = File.ReadAllText(testFileName);
+        //Assert.Equal("Hello, World!"+Environment.NewLine,contentFromFile);
 
     }
 }
