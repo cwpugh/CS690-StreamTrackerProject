@@ -7,7 +7,7 @@ public class ProgramsMgt {
     FileSaver fileSaver;
 
     public ProgramsMgt() {
-        fileSaver = new FileSaver("movie-list.csv");
+        fileSaver = new FileSaver("program-list.csv");
     }
 
     public void AddPrograms() {
@@ -58,7 +58,5 @@ public class ProgramsMgt {
         return Console.ReadLine()!;
 
     }
-
-
 
 }

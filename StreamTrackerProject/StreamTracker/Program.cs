@@ -1,5 +1,6 @@
 ﻿namespace StreamTracker;
 using System.IO;
+using Spectre.Console;
 
 class Program
 {
@@ -8,7 +9,6 @@ class Program
         //Display MainMenu
         ConsoleUI mainUI = new ConsoleUI();
         mainUI.MainMenu();
-        
      
     }
  

@@ -1,10 +1,10 @@
 namespace StreamTracker;
 
-public class StreamingServices {
+public class StreamingService {
     public string service_name { get;}
-    public bool current_subscription {get;}
+    public string current_subscription {get;}
 
-    public StreamingServices(string service, bool subscription) {
+    public StreamingService(string service, string subscription) {
         this.service_name = service;
         this.current_subscription = subscription;
     }

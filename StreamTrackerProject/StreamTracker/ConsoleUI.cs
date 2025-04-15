@@ -7,7 +7,6 @@ public class ConsoleUI {
     
 
     public ConsoleUI() {
-        
 
     }
 
@@ -24,8 +23,7 @@ public class ConsoleUI {
                     //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
                         "Programs", "Streaming Services", "What's up Next?","Quit program",
-                    }));
-
+                }));
 
             // 'program' selection
             if(mainChoice == "Programs") {
@@ -35,18 +33,14 @@ public class ConsoleUI {
 
             // 'streaming services' selection
             else if(mainChoice == "Streaming Services") {
-                Console.WriteLine("Feature under development");
-                Console.WriteLine("Press any key to return to the main menu");
-                Console.ReadKey();
+                StreamingServiceMenu();
                 
             }
-
             
             else if (mainChoice == "What's up Next?") {
-                Console.WriteLine("Feature under development");
-                Console.WriteLine("Press any key to return to the main menu");
-                Console.ReadKey();
+                WhatsUpNextMenu();
             }
+            
 
         } while(mainChoice!="Quit program");
 
@@ -56,7 +50,6 @@ public class ConsoleUI {
         Console.WriteLine();
 
     }
-
 
     public void ProgramsMenu() {
         string programs_choice;
@@ -86,7 +79,7 @@ public class ConsoleUI {
             // 'list' selection
             else if(programs_choice == "List current programs") {
                  // Specify the path to your text file
-                string fileName = @"movie-list.csv";
+                string fileName = @"program-list.csv";
 
                 // Check if the file exists
                 if (File.Exists(fileName))
@@ -94,7 +87,7 @@ public class ConsoleUI {
                     // Display each progam
                     ProgramsMgt programlist;
                     programlist = new ProgramsMgt();
-                    programlist.ListPrograms("movie-list.csv");
+                    programlist.ListPrograms("program-list.csv");
                     
                 }
                 else
@@ -114,18 +107,81 @@ public class ConsoleUI {
 
 
         } while(programs_choice!="Return to main menu");
-
-        // Return to Main Menu
-        MainMenu();
-
-
     }
 
     public void StreamingServiceMenu() {
+        string services_choice;
+        do {
+            
+            // Streaming Service Menu
+            Console.Clear();
+            services_choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Streaming Services Menu: [green]Choose a number below[/]")
+                    //.PageSize(10)
+                    //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
+                    .AddChoices(new[] {
+                        "Enter a new streaming service", "List current streaming services", "Edit streaming services","Return to main menu"
+                    }));
 
+
+            // 'new service' selection
+            if(services_choice == "Enter a new streaming service") {
+                StreamingServicesMgt addservice;
+                addservice = new StreamingServicesMgt();
+                addservice.AddService();
+                
+
+            }
+
+            // 'list' selection
+            else if(services_choice == "List current streaming services") {
+                 // Specify the path to your text file
+                string fileName = @"services-list.csv";
+
+                // Check if the file exists
+                if (File.Exists(fileName))
+                {
+                    // Display each progam
+                    StreamingServicesMgt serviceslist;
+                    serviceslist = new StreamingServicesMgt();
+                    serviceslist.ListServices("services-list.csv");
+                    
+                }
+
+                else
+                {
+                    Console.WriteLine("No services exist. Press any key to continue.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+
+            else if (services_choice == "Edit streaming services") {
+                    StreamingServicesMgt editservice;
+                    editservice = new StreamingServicesMgt();
+                    editservice.EditServices("services-list.csv");
+                }
+   
+
+
+        } while(services_choice!="Return to main menu");
     }
 
-    public void WhatsUpNextMenu() {
 
+
+    // public void StreamingServiceMenu() {
+    //     StreamingServicesMgt addservice;
+    //     addservice = new StreamingServicesMgt();
+    //     addservice.AddService();
+        
+
+    // }
+
+    public void WhatsUpNextMenu() {
+        Console.WriteLine("Feature under development");
+        Console.WriteLine("Press any key to return to the main menu");
+        Console.ReadKey();
+        
     }
 }
