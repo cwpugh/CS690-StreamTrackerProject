@@ -6,8 +6,9 @@
 # dotenv files
 .env
 
-movie-list.txt
-movie-list.csv
+program-list.csv
+services-list.csv
+whatsnext-list.csv
 
 # User-specific files
 *.rsuser

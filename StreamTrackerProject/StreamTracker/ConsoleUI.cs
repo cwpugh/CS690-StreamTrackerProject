@@ -7,7 +7,6 @@ public class ConsoleUI {
     
 
     public ConsoleUI() {
-        
 
     }
 
@@ -24,8 +23,7 @@ public class ConsoleUI {
                     //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
                         "Programs", "Streaming Services", "What's up Next?","Quit program",
-                    }));
-
+                }));
 
             // 'program' selection
             if(mainChoice == "Programs") {
@@ -35,18 +33,14 @@ public class ConsoleUI {
 
             // 'streaming services' selection
             else if(mainChoice == "Streaming Services") {
-                Console.WriteLine("Feature under development");
-                Console.WriteLine("Press any key to return to the main menu");
-                Console.ReadKey();
+                StreamingServiceMenu();
                 
             }
-
             
             else if (mainChoice == "What's up Next?") {
-                Console.WriteLine("Feature under development");
-                Console.WriteLine("Press any key to return to the main menu");
-                Console.ReadKey();
+                WhatsUpNextMenu();
             }
+            
 
         } while(mainChoice!="Quit program");
 
@@ -56,7 +50,6 @@ public class ConsoleUI {
         Console.WriteLine();
 
     }
-
 
     public void ProgramsMenu() {
         string programs_choice;
@@ -86,7 +79,7 @@ public class ConsoleUI {
             // 'list' selection
             else if(programs_choice == "List current programs") {
                  // Specify the path to your text file
-                string fileName = @"movie-list.csv";
+                string fileName = @"program-list.csv";
 
                 // Check if the file exists
                 if (File.Exists(fileName))
@@ -94,7 +87,7 @@ public class ConsoleUI {
                     // Display each progam
                     ProgramsMgt programlist;
                     programlist = new ProgramsMgt();
-                    programlist.ListPrograms("movie-list.csv");
+                    programlist.ListPrograms("program-list.csv");
                     
                 }
                 else
@@ -114,18 +107,20 @@ public class ConsoleUI {
 
 
         } while(programs_choice!="Return to main menu");
-
-        // Return to Main Menu
-        MainMenu();
-
-
     }
 
     public void StreamingServiceMenu() {
+        Console.WriteLine("Feature under development");
+        Console.WriteLine("Press any key to return to the main menu");
+        Console.ReadKey();
+        
 
     }
 
     public void WhatsUpNextMenu() {
-
+        Console.WriteLine("Feature under development");
+        Console.WriteLine("Press any key to return to the main menu");
+        Console.ReadKey();
+        
     }
 }
