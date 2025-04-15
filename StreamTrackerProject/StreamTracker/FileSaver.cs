@@ -18,10 +18,10 @@ public class FileSaver {
         string newStatus;
         if(status.ToLower() == "y") {
             newStatus = "Watched";
-            File.AppendAllText(filename,name + ", " + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + "," + newStatus + Environment.NewLine);
         } else if(status.ToLower() == "n") {
             newStatus = "Not Watched";
-            File.AppendAllText(filename,name + ", " + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + "," + newStatus + Environment.NewLine);
             
         } 
 

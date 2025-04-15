@@ -9,11 +9,7 @@ class Program
         ConsoleUI mainUI = new ConsoleUI();
         mainUI.MainMenu();
         
-        
-
-        
-        
-    
+     
     }
  
 }

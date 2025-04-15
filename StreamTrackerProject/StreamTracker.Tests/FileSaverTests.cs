@@ -22,7 +22,7 @@ public class FileSaverTests
         fileSaver.AppendListing("Hello, World!","y");
         string fileName = @"test-list.txt"; 
         string contentFromFile = File.ReadAllText(fileName);
-        Assert.Equal("Hello, World!, Watched"+Environment.NewLine,contentFromFile);
+        Assert.Equal("Hello, World!,Watched"+Environment.NewLine,contentFromFile);
 
     }
 }
