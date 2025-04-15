@@ -7,7 +7,7 @@ public class ConsoleUI {
     FileSaver fileSaver;
 
     public ConsoleUI() {
-        fileSaver = new FileSaver("movie-list.txt");
+        fileSaver = new FileSaver("movie-list.csv");
 
     }
 
@@ -48,28 +48,26 @@ public class ConsoleUI {
             // 'list' selection
             else if(mainChoice == "List current programs") {
                  // Specify the path to your text file
-                string fileName = @"movie-list.txt";
+                string fileName = @"movie-list.csv";
 
                 // Check if the file exists
                 if (File.Exists(fileName))
                 {
                     // Read all lines from the text file
-                    string[] programList = File.ReadAllLines(fileName);
+                    //string[] programList = File.ReadAllLines(fileName);
 
                     // Display each progam
-                    Console.Clear();
-                    Console.WriteLine("Programs");
-                    Console.WriteLine("------------------------");
-                    foreach (string program in programList)
-                    {
-                        Console.WriteLine(program);
+                    
+                    ManageCSV managecsv;
+                    managecsv = new ManageCSV();
+                    managecsv.ReadMovieCSV("movie-list.csv");
+
+                    //foreach (string program in programList)
+                    //{
+                    //    Console.WriteLine(program);
                         
-                        
-                    }
-                    Console.WriteLine("------------------------");
-                    Console.WriteLine("Listing complete. Press any key to continue.");
-                    Console.ReadKey();
-                    Console.Clear();
+                    //}
+                    
                 }
                 else
                 {
