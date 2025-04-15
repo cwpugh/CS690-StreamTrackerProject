@@ -4,15 +4,15 @@ using Spectre.Console;
 
 
 public class ConsoleUI {
-    FileSaver fileSaver;
+    
 
     public ConsoleUI() {
-        fileSaver = new FileSaver("movie-list.csv");
+        
 
     }
 
     public void MainMenu() {
-        string mainChoice, programName, watchStatus;
+        string mainChoice;
         do {
             
             // Main Menu
@@ -23,64 +23,29 @@ public class ConsoleUI {
                     //.PageSize(10)
                     //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
-                        "Enter a new program", "List current programs", "Quit program",
+                        "Programs", "Streaming Services", "What's up Next?","Quit program",
                     }));
 
 
             // 'program' selection
-            if(mainChoice == "Enter a new program") {
-                programName = UserInput("Please enter the program name: ");
-                watchStatus = UserInput("Have you watched this show? (enter y or n) ");
-                while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
-                {
-                    Console.WriteLine("Invalid choice. Please try again.");
-                    watchStatus = UserInput("Have you watched this show? (enter y or n) ");
-                    
-                }
+            if(mainChoice == "Programs") {
+                ProgramsMenu();
                 
-                fileSaver.AppendListing(programName,watchStatus);
-                Console.WriteLine("Program added. Press any key to continue.");
+            }
+
+            // 'streaming services' selection
+            else if(mainChoice == "Streaming Services") {
+                Console.WriteLine("Feature under development");
+                Console.WriteLine("Press any key to return to the main menu");
                 Console.ReadKey();
-                Console.Clear();
-
+                
             }
 
-            // 'list' selection
-            else if(mainChoice == "List current programs") {
-                 // Specify the path to your text file
-                string fileName = @"movie-list.csv";
-
-                // Check if the file exists
-                if (File.Exists(fileName))
-                {
-                    // Read all lines from the text file
-                    //string[] programList = File.ReadAllLines(fileName);
-
-                    // Display each progam
-                    
-                    ManageCSV managecsv;
-                    managecsv = new ManageCSV();
-                    managecsv.ReadMovieCSV("movie-list.csv");
-
-                    //foreach (string program in programList)
-                    //{
-                    //    Console.WriteLine(program);
-                        
-                    //}
-                    
-                }
-                else
-                {
-                    Console.WriteLine("No programs exist. Press any key to continue.");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-            }
-
-            // invalid selection
-            else if (mainChoice!="Quit program") {
-                Console.WriteLine("'" + mainChoice + "' is an invalid response. Please try again.");
-                Console.WriteLine();
+            
+            else if (mainChoice == "What's up Next?") {
+                Console.WriteLine("Feature under development");
+                Console.WriteLine("Press any key to return to the main menu");
+                Console.ReadKey();
             }
 
         } while(mainChoice!="Quit program");
@@ -92,9 +57,75 @@ public class ConsoleUI {
 
     }
 
-    public static string UserInput(string message) {
-        Console.Write(message);
-        return Console.ReadLine()!;
+
+    public void ProgramsMenu() {
+        string programs_choice;
+        do {
+            
+            // Programs Menu
+            Console.Clear();
+            programs_choice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Programs Menu: [green]Choose a number below[/]")
+                    //.PageSize(10)
+                    //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
+                    .AddChoices(new[] {
+                        "Enter a new program", "List current programs", "Watch Next", "Return to main menu"
+                    }));
+
+
+            // 'new program' selection
+            if(programs_choice == "Enter a new program") {
+                ProgramsMgt addprogram;
+                addprogram = new ProgramsMgt();
+                addprogram.AddPrograms();
+                
+
+            }
+
+            // 'list' selection
+            else if(programs_choice == "List current programs") {
+                 // Specify the path to your text file
+                string fileName = @"movie-list.csv";
+
+                // Check if the file exists
+                if (File.Exists(fileName))
+                {
+                    // Display each progam
+                    ProgramsMgt programlist;
+                    programlist = new ProgramsMgt();
+                    programlist.ListPrograms("movie-list.csv");
+                    
+                }
+                else
+                {
+                    Console.WriteLine("No programs exist. Press any key to continue.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+
+            else if(programs_choice == "Watch Next") {
+                Console.WriteLine("Feature under development");
+                Console.WriteLine("Press any key to return to the main menu");
+                Console.ReadKey();
+
+            }    
+
+
+        } while(programs_choice!="Return to main menu");
+
+        // Return to Main Menu
+        MainMenu();
+
+
+    }
+
+    public void StreamingServiceMenu() {
+
+    }
+
+    public void WhatsUpNextMenu() {
 
     }
 }
