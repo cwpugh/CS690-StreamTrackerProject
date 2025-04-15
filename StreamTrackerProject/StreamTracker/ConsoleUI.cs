@@ -16,11 +16,12 @@ public class ConsoleUI {
         do {
             
             // Main Menu
+            Console.Clear();
             mainChoice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Main Menu: [green]Choose a number below[/]")
                     //.PageSize(10)
-                    //.MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+                    //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
                         "Enter a new program", "List current programs", "Quit program",
                     }));
