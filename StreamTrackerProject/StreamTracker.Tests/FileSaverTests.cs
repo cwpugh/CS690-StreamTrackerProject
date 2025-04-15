@@ -8,7 +8,7 @@ public class FileSaverTests
     
 
     public FileSaverTests() {
-        string listName = "test-list.txt";
+        string listName = "test-list.csv";
         File.Delete(listName);
         fileSaver = new FileSaver(listName);
 
@@ -20,7 +20,7 @@ public class FileSaverTests
     public void Test_FileSaver_AppendListing()
     {
         fileSaver.AppendListing("Hello, World!","y");
-        string fileName = @"test-list.txt"; 
+        string fileName = @"test-list.csv"; 
         string contentFromFile = File.ReadAllText(fileName);
         Assert.Equal("Hello, World!,Watched"+Environment.NewLine,contentFromFile);
 
