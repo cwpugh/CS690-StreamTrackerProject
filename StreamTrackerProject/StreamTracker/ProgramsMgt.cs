@@ -18,7 +18,8 @@ public class ProgramsMgt {
         programName = Helper.UserInput("Please enter the program name: ");
 
         //Choose a streaming service
-        if (!File.Exists("services-list.csv")) {
+        string fileName = "services-list.csv";
+        if (!File.Exists(fileName)|| new FileInfo(fileName).Length == 0) {
             Console.WriteLine("You need to choose a streaming service but there are no streaming services in the list");
             Console.WriteLine("Please go back the main menu to add a streaming service");
             Console.WriteLine("Press any key to coninue");
@@ -26,7 +27,7 @@ public class ProgramsMgt {
             return;
         }
         else{
-            List<string> streamingList = Helper.GetList("services-list.csv",0);
+            List<string> streamingList = Helper.GetList(fileName,0);
             streamingService = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Choose a streaming service:")

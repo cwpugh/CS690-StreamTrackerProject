@@ -2,10 +2,8 @@ namespace StreamTracker;
 
 using Spectre.Console;
 
-
 public class ConsoleUI {
     
-
     public ConsoleUI() {
 
     }
@@ -82,7 +80,7 @@ public class ConsoleUI {
                 string fileName = @"program-list.csv";
 
                 // Check if the file exists
-                if (File.Exists(fileName))
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     ProgramsMgt programlist;
@@ -104,7 +102,7 @@ public class ConsoleUI {
                 string fileName = @"program-list.csv";
 
                 // Check if the file exists
-                if (File.Exists(fileName))
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     ProgramsMgt programedit;
@@ -155,17 +153,16 @@ public class ConsoleUI {
                 StreamingServicesMgt addservice;
                 addservice = new StreamingServicesMgt();
                 addservice.AddService();
-                
 
             }
 
             // 'list' selection
             else if(services_choice == "List current streaming services") {
-                 // Specify the path to your text file
+                // Specify the path to your text file
                 string fileName = @"services-list.csv";
 
-                // Check if the file exists
-                if (File.Exists(fileName))
+                // Check if the file exists and not empty
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     StreamingServicesMgt serviceslist;
@@ -183,25 +180,27 @@ public class ConsoleUI {
             }
 
             else if (services_choice == "Edit streaming services") {
+                // Specify the path to your text file
+                string fileName = @"services-list.csv";
+
+                // Check if the file exists and not empty
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0) {
+                
                     StreamingServicesMgt editservice;
                     editservice = new StreamingServicesMgt();
-                    editservice.EditServices("services-list.csv");
+                    editservice.EditServices(fileName);
                 }
-   
-
+                else {
+                    Console.WriteLine("No services exist. Press any key to continue.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
 
         } while(services_choice!="Return to main menu");
     }
 
 
-
-    // public void StreamingServiceMenu() {
-    //     StreamingServicesMgt addservice;
-    //     addservice = new StreamingServicesMgt();
-    //     addservice.AddService();
-        
-
-    // }
 
     public void WhatsUpNextMenu() {
         Console.WriteLine("Feature under development");
