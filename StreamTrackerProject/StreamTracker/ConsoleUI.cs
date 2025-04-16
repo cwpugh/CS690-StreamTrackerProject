@@ -63,7 +63,7 @@ public class ConsoleUI {
                     //.PageSize(10)
                     //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
-                        "Enter a new program", "List current programs", "Watch Next", "Return to main menu"
+                        "Enter a new program", "List current programs", "Edit a program","Watch Next", "Return to main menu"
                     }));
 
 
@@ -87,15 +87,40 @@ public class ConsoleUI {
                     // Display each progam
                     ProgramsMgt programlist;
                     programlist = new ProgramsMgt();
-                    programlist.ListPrograms("program-list.csv");
+                    programlist.ListPrograms(fileName);
                     
                 }
+
                 else
                 {
                     Console.WriteLine("No programs exist. Press any key to continue.");
                     Console.ReadKey();
                     Console.Clear();
                 }
+            }
+            // edit a program choice
+            else if(programs_choice == "Edit a program") {
+                 // Specify the path to your text file
+                string fileName = @"program-list.csv";
+
+                // Check if the file exists
+                if (File.Exists(fileName))
+                {
+                    // Display each progam
+                    ProgramsMgt programedit;
+                    programedit = new ProgramsMgt();
+                    programedit.EditPrograms(fileName);
+                    
+                }
+
+                else
+                {
+                    Console.WriteLine("No programs exist. Press any key to continue.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+    
+
             }
 
             else if(programs_choice == "Watch Next") {

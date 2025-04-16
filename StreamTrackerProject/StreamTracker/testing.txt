@@ -5,10 +5,10 @@
         // Initialize lists
         var programs = new List<string>();
         var services = new List<string>();
-	    var showMovie = new List<string>();
-	    var status = new List<string>();
-	    var season = new List<string>();
-	    var episode = new List<string>();
+        var showMovie = new List<string>();
+        var status = new List<string>();
+        var season = new List<string>();
+        var episode = new List<string>();
         
 
         // Read lines
@@ -34,9 +34,9 @@
 
         int index = programs.IndexOf(programToEdit);
 
-	    string changeValue = AnsiConsole.Prompt(
+        string changeValue = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
-            .Title("What do you want to change?"
+            .Title("What do you want to change?")
             .PageSize(10)
             .AddChoices("Program Name", "Streaming Service", "Show or Movie", "Watch Status", "Current Season and Episode"));
 
