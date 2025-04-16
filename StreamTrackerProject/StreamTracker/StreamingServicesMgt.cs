@@ -15,7 +15,7 @@ public class StreamingServicesMgt {
 
     public void AddService() {
         string service, subscription;
-        service = UserInput("Enter the name of the streaming service: ");
+        service = Helper.UserInput("Enter the name of the streaming service: ");
         subscription = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Do you have a current subscription?")
@@ -82,7 +82,7 @@ public class StreamingServicesMgt {
                 .AddChoices(services)
         );
         int index = services.IndexOf(serviceToEdit);
-        string newName = UserInput("What is the new name? ");
+        string newName = Helper.UserInput("What is the new name? ");
         string updatedStatus = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Do you have a current subscription?")
@@ -103,9 +103,4 @@ public class StreamingServicesMgt {
 
     }
 
-    public static string UserInput(string message) {
-        Console.Write(message);
-        return Console.ReadLine()!;
-
-    }
 }

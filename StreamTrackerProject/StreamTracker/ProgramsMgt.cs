@@ -6,14 +6,16 @@ using Spectre.Console;
 
 public class ProgramsMgt {
     FileSaver fileSaver;
+    
 
     public ProgramsMgt() {
         fileSaver = new FileSaver("program-list.csv");
+
     }
 
     public void AddPrograms() {
         string programName, streamingService, showOrMovie, watchStatus, season, episode;
-        programName = UserInput("Please enter the program name: ");
+        programName = Helper.UserInput("Please enter the program name: ");
 
         //Choose a streaming service
         if (!File.Exists("services-list.csv")) {
@@ -24,7 +26,7 @@ public class ProgramsMgt {
             return;
         }
         else{
-            List<string> streamingList = GetStreamingServices();
+            List<string> streamingList = Helper.GetList("services-list.csv",0);
             streamingService = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Choose a streaming service:")
@@ -41,18 +43,18 @@ public class ProgramsMgt {
                         "Show", "Movie"
                     }));
 
-        watchStatus = UserInput("Have you completely watched this show? (enter y or n) ");
+        watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");
         while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
         {
             Console.WriteLine("Invalid choice. Please try again.");
-            watchStatus = UserInput("Have you completely watched this show? (enter y or n) ");
+            watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");
             
         }
 
         //if not completely watched and the program is a show, ask for season and episode numbers
         if (watchStatus.ToLower()== "n" && showOrMovie == "Show") {
-            season = UserInput("What number season are you currently watching? ");
-            episode = UserInput("What is the number of the last episode you watched? ");
+            season = Helper.UserInput("What number season are you currently watching? ");
+            episode = Helper.UserInput("What is the number of the last episode you watched? ");
 
         }
         else {
@@ -105,31 +107,5 @@ public class ProgramsMgt {
         Console.Clear();
     }
 
-    static List<string> GetStreamingServices()
-    {
-        string filePath = "services-list.csv";
-        //initalize list
-        var streamingList = new List<string>();
-
-        // Read lines
-        var lines = File.ReadAllLines(filePath);
-        for (int i = 0; i < lines.Length; i++)
-        {
-            var parts = lines[i].Split(',');
-            if (parts.Length == 2)
-            {
-                streamingList.Add(parts[0]);
-                
-            }
-        }
-        
-        return streamingList;
-    } 
-
-    public static string UserInput(string message) {
-        Console.Write(message);
-        return Console.ReadLine()!;
-
-    }
 
 }
