@@ -21,12 +21,13 @@ public class FileSaverTests
 
 
     [Fact]
+    //AppendListing(string name, string streamingService, string showOrMovie, string status, string season, string episode)
     public void Test_FileSaver_AppendListing()
     {
-        fileSaver.AppendListing("Hello, World!","y");
+        fileSaver.AppendListing("Hello, World!","Hulu","Movie","y","0","0");
         string fileName = @"test-list.csv"; 
         string contentFromFile = File.ReadAllText(fileName);
-        Assert.Equal("Hello, World!,Watched"+Environment.NewLine,contentFromFile);
+        Assert.Equal("Hello, World!,Hulu,Movie,Watched,0,0"+Environment.NewLine,contentFromFile);
 
     }
 

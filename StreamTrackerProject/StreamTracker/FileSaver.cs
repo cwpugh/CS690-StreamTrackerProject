@@ -12,16 +12,16 @@ public class FileSaver {
         }
     }
 
-
-    public void AppendListing(string name, string status) {
+//name, streamingService, showOrMovie, status, season, episode
+    public void AppendListing(string name, string streamingService, string showOrMovie, string status, string season, string episode) {
 
         string newStatus;
         if(status.ToLower() == "y") {
             newStatus = "Watched";
-            File.AppendAllText(filename,name + "," + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + "," + streamingService + "," + showOrMovie + "," + newStatus + ","+ season + "," + episode +Environment.NewLine);
         } else if(status.ToLower() == "n") {
             newStatus = "Not Watched";
-            File.AppendAllText(filename,name + "," + newStatus + Environment.NewLine);
+            File.AppendAllText(filename,name + "," + streamingService + "," + showOrMovie + "," + newStatus + ","+ season + "," + episode +Environment.NewLine);
 
         }
         
