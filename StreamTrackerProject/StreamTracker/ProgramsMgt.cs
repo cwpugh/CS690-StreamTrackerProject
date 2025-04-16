@@ -6,14 +6,16 @@ using Spectre.Console;
 
 public class ProgramsMgt {
     FileSaver fileSaver;
+    
 
     public ProgramsMgt() {
         fileSaver = new FileSaver("program-list.csv");
+
     }
 
     public void AddPrograms() {
         string programName, streamingService, showOrMovie, watchStatus, season, episode;
-        programName = UserInput("Please enter the program name: ");
+        programName = Helper.UserInput("Please enter the program name: ");
 
         //Choose a streaming service
         if (!File.Exists("services-list.csv")) {
@@ -24,7 +26,7 @@ public class ProgramsMgt {
             return;
         }
         else{
-            List<string> streamingList = GetStreamingServices();
+            List<string> streamingList = Helper.GetList("services-list.csv",0);
             streamingService = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Choose a streaming service:")
@@ -41,18 +43,18 @@ public class ProgramsMgt {
                         "Show", "Movie"
                     }));
 
-        watchStatus = UserInput("Have you completely watched this show? (enter y or n) ");
+        watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");
         while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
         {
             Console.WriteLine("Invalid choice. Please try again.");
-            watchStatus = UserInput("Have you completely watched this show? (enter y or n) ");
+            watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");
             
         }
 
         //if not completely watched and the program is a show, ask for season and episode numbers
         if (watchStatus.ToLower()== "n" && showOrMovie == "Show") {
-            season = UserInput("What number season are you currently watching? ");
-            episode = UserInput("What is the number of the last episode you watched? ");
+            season = Helper.UserInput("What number season are you currently watching? ");
+            episode = Helper.UserInput("What is the number of the last episode you watched? ");
 
         }
         else {
@@ -105,31 +107,126 @@ public class ProgramsMgt {
         Console.Clear();
     }
 
-    static List<string> GetStreamingServices()
-    {
-        string filePath = "services-list.csv";
-        //initalize list
-        var streamingList = new List<string>();
+    public void EditPrograms(string csvfile){
+
+        string filePath = csvfile;
+
+        // Initialize lists
+        var programs = new List<string>();
+        var services = new List<string>();
+        var showMovie = new List<string>();
+        var status = new List<string>();
+        var season = new List<string>();
+        var episode = new List<string>();
+        
 
         // Read lines
         var lines = File.ReadAllLines(filePath);
         for (int i = 0; i < lines.Length; i++)
         {
             var parts = lines[i].Split(',');
-            if (parts.Length == 2)
-            {
-                streamingList.Add(parts[0]);
+            programs.Add(parts[0]);
+            services.Add(parts[1]);
+            showMovie.Add(parts[2]);
+            status.Add(parts[3]);
+            season.Add(parts[4]);
+            episode.Add(parts[5]);	
                 
-            }
         }
         
-        return streamingList;
-    } 
+        //Choose a program to edit
+        var programToEdit = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("Choose a program to edit:")
+                .PageSize(10)
+                .AddChoices(programs));
 
-    public static string UserInput(string message) {
-        Console.Write(message);
-        return Console.ReadLine()!;
+        int index = programs.IndexOf(programToEdit);
+        string changeValue;
+        
+        do{
+            Console.Clear();
+            if(season[index]=="0") {
+                Console.WriteLine("Current Information: " +programs[index] + " - " + services[index] + " - " + showMovie[index] + " - " + status[index]);
+            }
+            else {
+                Console.WriteLine("Current Information: " +programs[index] + " - " + services[index] + " - " + showMovie[index] + " - " + status[index]+ " - s:"+season[index] +" e:"+episode[index]);
+
+            }
+            Console.WriteLine();
+
+            changeValue = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("What do you want to change?")
+                .PageSize(10)
+                .AddChoices("Program Name", "Streaming Service", "Show or Movie", "Watch Status", "Current Season and Episode", "Return to Programs Menu"));
+
+            //change program name
+            if (changeValue == "Program Name") {
+                string newName = Helper.UserInput("What is the new program name? ");
+                programs[index] = newName;
+
+            }
+
+            //change streaming service
+            else if (changeValue == "Streaming Service") {
+                //get list of streaming services
+                var serviceList = Helper.GetList("services-list.csv",0);
+                string newService = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("Choose streaming service:")
+                    .PageSize(10)
+                    .AddChoices(serviceList));
+                services[index] = newService;
+            }
+
+            //change movie or show
+            else if (changeValue == "Show or Movie") {
+                string newShowMovie = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("Is this a show or a movie?")
+                    .AddChoices("Show", "Movie"));
+                showMovie[index] = newShowMovie;
+
+            }
+
+
+            //change complete watch status
+            else if (changeValue == "Watch Status") {
+
+                string updatedStatus = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("Have you completely watched this show/movie?")
+                    .AddChoices("Watched", "Not Watched"));
+                status[index] = updatedStatus;
+
+            }
+
+            
+            //change season and episode
+            else if (changeValue == "Current Season and Episode") {
+                string updatedSeason = Helper.UserInput("What season are you watching? ");
+                string updatedEpisode = Helper.UserInput("What was the last episode watched? ");
+                season[index] = updatedSeason;
+                episode[index] = updatedEpisode;
+
+            }
+
+            
+            //save changes back to file
+            using (var writer = new StreamWriter(filePath))
+            {
+                // Join and write rows
+                for (int i = 0; i < services.Count && i < status.Count; i++)
+                {
+                    writer.WriteLine($"{programs[i]},{services[i]},{showMovie[i]},{status[i]},{season[i]},{episode[i]}");
+                }
+            }
+
+        } while (changeValue!="Return to Programs Menu");
+
 
     }
+
 
 }
