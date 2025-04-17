@@ -2,10 +2,8 @@ namespace StreamTracker;
 
 using Spectre.Console;
 
-
 public class ConsoleUI {
     
-
     public ConsoleUI() {
 
     }
@@ -60,10 +58,8 @@ public class ConsoleUI {
             programs_choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Programs Menu: [green]Choose a number below[/]")
-                    //.PageSize(10)
-                    //.MoreChoicesText("[grey](Move up and down to reveal more programs)[/]")
                     .AddChoices(new[] {
-                        "Enter a new program", "List current programs", "Edit a program","Watch Next", "Return to main menu"
+                        "Enter a new program", "List current programs", "Edit a program","Choose programs to watch next", "Return to main menu"
                     }));
 
 
@@ -82,7 +78,7 @@ public class ConsoleUI {
                 string fileName = @"program-list.csv";
 
                 // Check if the file exists
-                if (File.Exists(fileName))
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     ProgramsMgt programlist;
@@ -93,18 +89,16 @@ public class ConsoleUI {
 
                 else
                 {
-                    Console.WriteLine("No programs exist. Press any key to continue.");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Helper.ProgramsDoNotExist();
                 }
             }
             // edit a program choice
             else if(programs_choice == "Edit a program") {
-                 // Specify the path to your text file
+                // Specify the path to your text file
                 string fileName = @"program-list.csv";
 
                 // Check if the file exists
-                if (File.Exists(fileName))
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     ProgramsMgt programedit;
@@ -115,21 +109,25 @@ public class ConsoleUI {
 
                 else
                 {
-                    Console.WriteLine("No programs exist. Press any key to continue.");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Helper.ProgramsDoNotExist();
                 }
     
 
             }
 
-            else if(programs_choice == "Watch Next") {
-                Console.WriteLine("Feature under development");
-                Console.WriteLine("Press any key to return to the main menu");
-                Console.ReadKey();
+            else if(programs_choice == "Choose programs to watch next") {
+                string fileName = "program-list.csv";
+                if (!File.Exists(fileName)|| new FileInfo(fileName).Length == 0) {
+                    Helper.ProgramsDoNotExist();
+                    return;
+                }
+
+                else{
+                    WhatsNextMgt.AddNextThree();
+                }
+
 
             }    
-
 
         } while(programs_choice!="Return to main menu");
     }
@@ -155,17 +153,16 @@ public class ConsoleUI {
                 StreamingServicesMgt addservice;
                 addservice = new StreamingServicesMgt();
                 addservice.AddService();
-                
 
             }
 
             // 'list' selection
             else if(services_choice == "List current streaming services") {
-                 // Specify the path to your text file
+                // Specify the path to your text file
                 string fileName = @"services-list.csv";
 
-                // Check if the file exists
-                if (File.Exists(fileName))
+                // Check if the file exists and not empty
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0)
                 {
                     // Display each progam
                     StreamingServicesMgt serviceslist;
@@ -176,37 +173,50 @@ public class ConsoleUI {
 
                 else
                 {
-                    Console.WriteLine("No services exist. Press any key to continue.");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Helper.ServicesDoNotExist();
                 }
             }
 
             else if (services_choice == "Edit streaming services") {
+                // Specify the path to your text file
+                string fileName = @"services-list.csv";
+
+                // Check if the file exists and not empty
+                if (File.Exists(fileName)&& new FileInfo(fileName).Length != 0) {
+                
                     StreamingServicesMgt editservice;
                     editservice = new StreamingServicesMgt();
-                    editservice.EditServices("services-list.csv");
+                    editservice.EditServices(fileName);
                 }
-   
-
+                else {
+                    Helper.ServicesDoNotExist();
+                }
+            }
 
         } while(services_choice!="Return to main menu");
     }
 
 
 
-    // public void StreamingServiceMenu() {
-    //     StreamingServicesMgt addservice;
-    //     addservice = new StreamingServicesMgt();
-    //     addservice.AddService();
-        
-
-    // }
-
     public void WhatsUpNextMenu() {
-        Console.WriteLine("Feature under development");
-        Console.WriteLine("Press any key to return to the main menu");
+        string nextListPath = "whatsnext-list.csv";
+
+        if (File.Exists(nextListPath)&& new FileInfo(nextListPath).Length != 0)
+        {
+            string content = File.ReadAllText(nextListPath);
+            Console.WriteLine("Next shows to watch:");
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine(content);
+            Console.WriteLine("------------------------------------------------------------");
+        }
+        else
+        {
+            Console.WriteLine("No programs found.");
+        }
+        Console.WriteLine("Press and key to continue.");
         Console.ReadKey();
         
     }
+
+    
 }
