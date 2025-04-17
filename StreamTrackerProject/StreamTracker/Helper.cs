@@ -31,6 +31,21 @@ public class Helper {
     return newList;
     }
 
+    public static void ProgramsDoNotExist() {
+        Console.WriteLine("No programs exist. Press any key to continue.");
+        Console.ReadKey();
+        Console.Clear();
+
+    }
+
+    public static void ServicesDoNotExist() {
+        Console.WriteLine("No streaming services exist. Press any key to continue.");
+        Console.ReadKey();
+        Console.Clear();
+
+    }
+
+
 
 
 
