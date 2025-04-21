@@ -4,21 +4,32 @@ using StreamTracker;
 
 public class FileSaverTests
 {
+    FileSaver fileSaver0;
     FileSaver fileSaver;
     FileSaver fileSaver2;
     
 
     public FileSaverTests() {
+        string newFile = "file-test.csv";
         string listName = "test-list.csv";
         string serviceName = "test-service.csv";
+        File.Delete(newFile);
         File.Delete(listName);
         File.Delete(serviceName);
+        fileSaver0 = new FileSaver(newFile);
         fileSaver = new FileSaver(listName);
         fileSaver2 = new FileSaver(serviceName);
 
     }
 
 
+    [Fact]
+    public void Test_FileCreation()
+    {
+        string checkFile = @"file-test.csv";
+        bool fileExists = File.Exists(checkFile);
+        Assert.True(fileExists);
+    }
 
     [Fact]
     //AppendListing(string name, string streamingService, string showOrMovie, string status, string season, string episode)
