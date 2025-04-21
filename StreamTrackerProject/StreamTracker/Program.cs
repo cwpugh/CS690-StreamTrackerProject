@@ -1,6 +1,5 @@
 ﻿namespace StreamTracker;
-using System.IO;
-using Spectre.Console;
+
 
 class Program
 {
@@ -11,5 +10,4 @@ class Program
         mainUI.MainMenu();
      
     }
- 
 }

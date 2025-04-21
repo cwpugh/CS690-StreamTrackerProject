@@ -48,15 +48,13 @@ public class ProgramsMgt {
         while(watchStatus.ToLower() != "y" && watchStatus.ToLower()!= "n")
         {
             Console.WriteLine("Invalid choice. Please try again.");
-            watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");
-            
+            watchStatus = Helper.UserInput("Have you completely watched this show? (enter y or n) ");  
         }
 
         //if not completely watched and the program is a show, ask for season and episode numbers
         if (watchStatus.ToLower()== "n" && showOrMovie == "Show") {
             season = Helper.UserInput("What number season are you currently watching? ");
             episode = Helper.UserInput("What is the number of the last episode you watched? ");
-
         }
         else {
             season = "0";
@@ -64,14 +62,11 @@ public class ProgramsMgt {
 
         }
         
-
         fileSaver.AppendListing(programName, streamingService, showOrMovie, watchStatus, season, episode);
         Console.WriteLine("Program added. Press any key to continue.");
         Console.ReadKey();
         Console.Clear();
-
     }
-
     public void ListPrograms(string csvfile){
 
         //Read, separate, and list all lines in the csv file
@@ -99,8 +94,7 @@ public class ProgramsMgt {
             else {
                 Console.WriteLine(program_name + " - " + service + " - " + showOrMovie + " - " + status + " - s:"+season +" e:"+episode);
             }
-            
-            
+               
         }
         Console.WriteLine("-------------------------------------------------------");
         Console.WriteLine("Listing complete. Press any key to continue.");
@@ -120,7 +114,6 @@ public class ProgramsMgt {
         var season = new List<string>();
         var episode = new List<string>();
         
-
         // Read lines
         var lines = File.ReadAllLines(filePath);
         for (int i = 0; i < lines.Length; i++)
@@ -131,8 +124,7 @@ public class ProgramsMgt {
             showMovie.Add(parts[2]);
             status.Add(parts[3]);
             season.Add(parts[4]);
-            episode.Add(parts[5]);	
-                
+            episode.Add(parts[5]);	     
         }
         
         //Choose a program to edit
@@ -166,7 +158,6 @@ public class ProgramsMgt {
             if (changeValue == "Program Name") {
                 string newName = Helper.UserInput("What is the new program name? ");
                 programs[index] = newName;
-
             }
 
             //change streaming service
@@ -188,9 +179,7 @@ public class ProgramsMgt {
                     .Title("Is this a show or a movie?")
                     .AddChoices("Show", "Movie"));
                 showMovie[index] = newShowMovie;
-
             }
-
 
             //change complete watch status
             else if (changeValue == "Watch Status") {
@@ -200,20 +189,16 @@ public class ProgramsMgt {
                     .Title("Have you completely watched this show/movie?")
                     .AddChoices("Watched", "Not Watched"));
                 status[index] = updatedStatus;
-
             }
 
-            
             //change season and episode
             else if (changeValue == "Current Season and Episode") {
                 string updatedSeason = Helper.UserInput("What season are you watching? ");
                 string updatedEpisode = Helper.UserInput("What was the last episode watched? ");
                 season[index] = updatedSeason;
                 episode[index] = updatedEpisode;
-
             }
 
-            
             //save changes back to file
             using (var writer = new StreamWriter(filePath))
             {
@@ -225,9 +210,5 @@ public class ProgramsMgt {
             }
 
         } while (changeValue!="Return to Programs Menu");
-
-
     }
-
-
 }
