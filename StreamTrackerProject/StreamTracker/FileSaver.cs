@@ -12,7 +12,6 @@ public class FileSaver {
         }
     }
 
-//name, streamingService, showOrMovie, status, season, episode
     public void AppendListing(string name, string streamingService, string showOrMovie, string status, string season, string episode) {
 
         string newStatus;
@@ -22,9 +21,7 @@ public class FileSaver {
         } else if(status.ToLower() == "n") {
             newStatus = "Not Watched";
             File.AppendAllText(filename,name + "," + streamingService + "," + showOrMovie + "," + newStatus + ","+ season + "," + episode +Environment.NewLine);
-
-        }
-        
+        } 
     }
 
     public void AppendService(string service, string subscription) {
@@ -35,11 +32,7 @@ public class FileSaver {
             File.AppendAllText(filename,service + "," + newSub + Environment.NewLine);
         } else if(subscription == "No") {
             newSub = "Not Subscribed";
-            File.AppendAllText(filename,service + "," + newSub + Environment.NewLine);
-            
-        }
-            
+            File.AppendAllText(filename,service + "," + newSub + Environment.NewLine);  
+        }      
     }
-
- 
 }
